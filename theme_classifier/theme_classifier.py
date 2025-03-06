@@ -80,7 +80,7 @@ class ThemeClassifier():
         output_themes = df['script'].apply(self.get_themes_inference)
         
         themes_df = pd.DataFrame(output_themes.tolist())
-        df[themes_df.coluns] = themes_df
+        df[themes_df.columns] = themes_df
         
         # save output
         if save_path is not None:
