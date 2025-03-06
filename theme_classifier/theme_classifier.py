@@ -13,7 +13,6 @@ from utils import load_subtitles_dataset
 
 import nltk
 nltk.download('punkt')
-nltk.download('punkt_tab')
 
 class ThemeClassifier():
     def __init__(self, theme_list):
@@ -26,7 +25,7 @@ class ThemeClassifier():
     def load_model(self, device):
         theme_classifier = pipeline("zero-shot-classification",
                                 model = self.model_name,
-                                device = self.device)
+                                device = device)
     
         return theme_classifier
     
@@ -85,6 +84,5 @@ class ThemeClassifier():
         # save output
         if save_path is not None:
             df.to_csv(save_path, index=False)
-            
             
         return df 
