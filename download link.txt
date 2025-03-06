@@ -1,0 +1,7 @@
+1. move/attack data:
+
+https://naruto.fandom.com/wiki/Special:BrowseData/Jutsu?limit=250&offset=0&_cat=Jutsu
+
+
+2. subtitles: https://subtitlist.com/subs/naruto
+3. transcript: https://www.kaggle.com/datasets/leonzatrax/naruto-ep-1-transcript
