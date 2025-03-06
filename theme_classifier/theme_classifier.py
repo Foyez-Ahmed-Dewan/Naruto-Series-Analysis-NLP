@@ -64,25 +64,36 @@ class ThemeClassifier():
 
         return themes
     
-    
+
     def get_themes(self, dataset_path, save_path=None):
-        # Read and save output if Exists
-        if save_path is not None and os.path.exists(save_path):
-            df = pd.read_csv(save_path)
-            return df
-        
-        # load dataset
+        #  Check if save_path exists
+        if save_path is not None:
+            if os.path.isdir(save_path):
+                raise ValueError(f"Error: Expected a file but got a directory: {save_path}")
+
+            if os.path.exists(save_path):
+                print(f"Loading from existing file: {save_path}")
+                df = pd.read_csv(save_path)
+                return df
+
+        # 🚀 Load dataset
         df = load_subtitles_dataset(dataset_path)
-        # df = df.head(2)
-        
-        # run inference
+
+        # 🔍 Run inference
         output_themes = df['script'].apply(self.get_themes_inference)
-        
+
+        # Convert to DataFrame
         themes_df = pd.DataFrame(output_themes.tolist())
         df[themes_df.columns] = themes_df
-        
-        # save output
+
+        #  Save output if save_path is given
         if save_path is not None:
+            if not save_path.endswith(".csv"):  # Ensure it's a valid file
+                save_path = os.path.join(save_path, "output.csv")  
+                print(f" Given a directory, saving as {save_path}")
+
             df.to_csv(save_path, index=False)
-            
-        return df 
+            print(f" Saved results to {save_path}")
+
+        return df
+
